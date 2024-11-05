@@ -1,0 +1,86 @@
+/* Resetting some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body Styling */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Header Styling */
+  .header {
+    background-color: #007bff;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  
+  /* Dashboard Section Styling */
+  .dashboard {
+    padding: 1.5rem;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .stats-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .stat-box {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1.5rem;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .stat-box h3 {
+    font-size: 1.2rem;
+    color: #007bff;
+  }
+  
+  .stat-box p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+  }
+  
+  /* Patient List Section Styling */
+  .patient-list {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+  
+  .patient-list ul {
+    list-style-type: none;
+  }
+  
+  .patient-item {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+  }
+  
+  .patient-item h4 {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .patient-item p {
+    color: #666;
+    margin-top: 0.5rem;
+  }
+  

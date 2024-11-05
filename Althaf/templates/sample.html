@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Allotment System</title>
+</head>
+<body>
+    <h1>Patient Room Allotment System</h1>
+    
+    <!-- Allot Room Form -->
+    <h2>Allot a Room</h2>
+    <form id="allot-form">
+        <label for="patient_name_allot">Patient Name:</label>
+        <input type="text" id="patient_name_allot" required>
+        <button type="submit">Allot Room</button>
+    </form>
+    <div id="allot-result"></div>
+
+    <!-- Release Room Form -->
+    <h2>Release a Room</h2>
+    <form id="release-form">
+        <label for="patient_name_release">Patient Name:</label>
+        <input type="text" id="patient_name_release" required>
+        <button type="submit">Release Room</button>
+    </form>
+    <div id="release-result"></div>
+
+    <script>
+        // Allot Room Event
+        document.getElementById("allot-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const patient_name = document.getElementById("patient_name_allot").value;
+            fetch("/allot", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ patient_name })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("allot-result").innerText = data.result;
+            })
+            .catch(error => {
+                document.getElementById("allot-result").innerText = "Error: " + error;
+            });
+        });
+
+        // Release Room Event
+        document.getElementById("release-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const patient_name = document.getElementById("patient_name_release").value;
+            fetch("/release", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ patient_name })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("release-result").innerText = data.result;
+            })
+            .catch(error => {
+                document.getElementById("release-result").innerText = "Error: " + error;
+            });
+        });
+    </script>
+</body>
+</html>

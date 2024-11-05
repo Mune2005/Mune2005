@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Readmission Prediction</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            max-width: 500px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .message {
+            font-size: 1.5em;
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Readmission Prediction</h1>
+        <input type="text" id="patientName" placeholder="Enter patient name" />
+        <button onclick="predictReadmission()">Predict</button>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        async function predictReadmission() {
+            const patientName = document.getElementById("patientName").value;
+            const messageDiv = document.getElementById("message");
+
+            // Clear previous message
+            messageDiv.innerHTML = "";
+
+            if (!patientName) {
+                messageDiv.innerHTML = "Please enter a patient name.";
+                return;
+            }
+
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ patient_name: patientName })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    messageDiv.innerHTML = data.error;
+                } else {
+                    const { name, result, probability } = data;
+                    messageDiv.innerHTML = `${name} ${result} (Probability: ${probability})`;
+                    messageDiv.style.color = result.includes("re-admitted") ? "red" : "green";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                messageDiv.innerHTML = "Error: Unable to fetch prediction.";
+            }
+        }
+    </script>
+</body>
+</html>
